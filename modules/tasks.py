@@ -1,14 +1,23 @@
 import asyncio
 import traceback
+import platform
+from typing import Union
 
 from playwright.async_api import Page
-from pygetwindow import Win32Window
 from modules.configs import Config
 from modules.utils import get_video_attr, display_window, hide_window
 from playwright._impl._errors import TargetClosedError
 from modules.logger import Logger
 
 logger = Logger()
+
+# 根据平台选择不同的窗口管理方式
+if platform.system() == 'Windows':
+    from pygetwindow import Win32Window
+    WindowType = Win32Window
+else:
+    # 其他平台的窗口类型占位
+    WindowType = object
 
 
 async def task_monitor(tasks: list[asyncio.Task]) -> None:
@@ -26,7 +35,11 @@ async def task_monitor(tasks: list[asyncio.Task]) -> None:
     logger.info("任务监控已退出.", shift=True)
 
 
-async def activate_window(window: Win32Window) -> None:
+async def activate_window(window: Union[WindowType, None]) -> None:
+    if window is None or platform.system() != 'Windows':
+        logger.info("非Windows平台，窗口激活功能不可用或窗口对象无效.")
+        return
+        
     while True:
         try:
             await asyncio.sleep(2)

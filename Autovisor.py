@@ -14,7 +14,7 @@ from modules.support import show_donate
 from modules.utils import optimize_page, get_lesson_name, get_filtered_class, get_video_attr, hide_window, \
     get_browser_window, bring_console_to_front, save_cookies, load_cookies
 from modules.slider import slider_verify
-from modules.tasks import video_optimize, play_video, skip_questions, wait_for_verify, activate_window, task_monitor
+from modules.tasks import video_optimize, play_video, skip_questions, wait_for_verify, task_monitor
 from modules import installer
 
 # 获取全局事件循环

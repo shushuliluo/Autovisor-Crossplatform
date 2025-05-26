@@ -11,4 +11,6 @@ __pycache__/
 captcha/
 logs/
 ./preview/*
-
+.DS_Store
+**/.DS_Store
+.DS_Store?
